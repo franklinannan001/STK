@@ -17,7 +17,9 @@ def main():
         sys.exit("Invalid Amount")
 
     ref = ""
-    for _ in range(6):
+    count = 0
+    while count < 6:
+        count += 1
         number = random.randint(0, 9)
         ref += str(number)
 
