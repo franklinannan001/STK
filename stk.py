@@ -1,5 +1,6 @@
 import random
 import sys
+import re
 
 
 def main():
@@ -52,24 +53,8 @@ def main():
 
 # return the phone number in 254XXXXXXXXX format
 def normalize_phone(raw):
-    if len(raw) == 10:
-        if raw[:2] == "07" or raw[:2] == "01":
-            if raw.isdecimal() and raw.isascii():
-                return f"254{raw[1:]}"
-            else:
-                raise ValueError
-        else:
-            raise ValueError
-
-    elif len(raw) == 12:
-        if raw[:4] == "2547" or raw[:4] == "2541":
-            if raw.isdecimal() and raw.isascii():
-                return raw
-            else:
-                raise ValueError
-        else:
-            raise ValueError
-
+    if phone := re.search(r"^(?:0|254)(7|1)([0-9]{8})$", raw):
+        return f"254{phone.group(1)}{phone.group(2)}"
     else:
         raise ValueError
 
